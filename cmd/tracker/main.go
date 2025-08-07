@@ -7,14 +7,15 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/Yandex-Practicum/tracker/internal/daysteps"
-	"github.com/Yandex-Practicum/tracker/internal/spentcalories"
 )
 
 const (
 	stepLenght = 0.65
 	mInKm = 1000
+        minInH = 60
+        stepLeightCoeff = 0.414
+        walkingCaloriesCoefficient = 0.035
+        runningCaloriesCoefficient = 0.029
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
@@ -22,6 +23,8 @@ func parsePackage(data string) (int, time.Duration, error) {
 	if len(parts) != 2 {
 		retun 0, 0, errors.New("неверный формат количества шагов")
 	}
+
+        steps, err := strcovn.Atoi(strings.TrimSpace(parts[0]))
 	if steps <= 0 {
 		return 0, 0, errors.New("количество шагов должно быть положительным")
 	}
@@ -37,9 +40,6 @@ func parsePackage(data string) (int, time.Duration, error) {
 		log.Panicln(err)
 		return""
 	}
-	if steps <= 0 {
-		return ""
-	}
 	distanceMeters := float64(steps) * stepLenght
 	distanceKm := distanceMeters / mInKm
 
@@ -51,17 +51,13 @@ func parsePackage(data string) (int, time.Duration, error) {
 	return formatDayActionInfo(steps, distanceKm, calories)
  }
 
- func formatDayActionInfo(steps int, distanca, calories float64) Strings {
+ func formatDayActionInfo(steps int, distanca, calories float64) strings {
 	return string.Join([]string{
 		"Количество шагов: " + strconv.Itoa(steps) + ".",
 		"Дистанция составила " + strconv.FormatFloat(distance, 'f', 2, 64) + "км.",
 		"Вы сожгли " + strconv.FormatFloat(calories, 'f', 2, 64) + "ккал.",
 	}, "\n")
  }
- const (
-	stemLengCoefficient = 0.414
-	walkingCaloriesCoefficient = 0.035
- )
 
  func parseTraining(data string) (int, string, time.Duration, error) {
 	parts := strings.Split(data, ",")
@@ -84,6 +80,9 @@ func parsePackage(data string) (int, time.Duration, error) {
 	return steps, activity, duration, nil
 
  }
+func distance(steps int, height float64) float64 {
+return float64(steps) * height * stepLeightCoeff / mInKm
+}
 
  func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if duration <= 0 {
@@ -172,7 +171,7 @@ func main() {
 		fmt.Println(v)
 	}
 
-	// тренировки
+	
 	trainings := []string{
 		"3456,Ходьба,3h00m",
 		"something is wrong",
