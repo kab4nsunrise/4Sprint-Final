@@ -64,7 +64,7 @@ type SpentCalories struct {
 	RunningCoefficient float64
 }
 
-func NewSpentCalories() *SpentCalories {
+func NewSpentCalories() SpentCalories {
 	return &SpentCalories{
 		StepLength:       0.65,
 		MInKm:            1000,
@@ -74,11 +74,11 @@ func NewSpentCalories() *SpentCalories {
 	}
 }
 
-func (sc *SpentCalories) Distance(steps int, height float64) float64 {
+func (sc SpentCalories) Distance(steps int, height float64) float64 {
 	return float64(steps) * height * sc.StepLengthCoeff / sc.MInKm
 }
 
-func (sc *SpentCalories) MeanSpeed(steps int, height float64, duration time.Duration) float64 {
+func (sc SpentCalories) MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if duration <= 0 {
 		return 0
 	}
@@ -86,7 +86,7 @@ func (sc *SpentCalories) MeanSpeed(steps int, height float64, duration time.Dura
 	return dist / duration.Hours()
 }
 
-func (sc *SpentCalories) RunningCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
+func (sc SpentCalories) RunningCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
 		return 0, errors.New("некорректные параметры")
 	}
@@ -95,7 +95,7 @@ func (sc *SpentCalories) RunningCalories(steps int, weight, height float64, dura
 	return sc.RunningCoefficient * weight * speed * durationInMinutes, nil
 }
 
-func (sc *SpentCalories) WalkingCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
+func (sc SpentCalories) WalkingCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
 		return 0, errors.New("некорректные параметры")
 	}
@@ -104,7 +104,7 @@ func (sc *SpentCalories) WalkingCalories(steps int, weight, height float64, dura
 	return sc.WalkingCoefficient * weight * distanceKm / durationInHours, nil
 }
 
-// Основной код
+
 var (
 	ds = DaySteps{}
 	sc = NewSpentCalories()
@@ -175,7 +175,7 @@ func main() {
 	weight := 84.6
 	height := 1.87
 
-	// дневная активность
+	
 	input := []string{
 		"678,50m",
 		"792,1h14m",
@@ -198,7 +198,7 @@ func main() {
 		fmt.Println()
 	}
 
-	// тренировки
+	
 	trainings := []string{
 		"3456,Ходьба,3h00m",
 		"678,Бег,5m",
