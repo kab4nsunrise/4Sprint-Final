@@ -40,23 +40,19 @@ func parsePackage(data string) (int, time.Duration, error) {
 	return steps, duration, nil
 }
 
-func DayActionInfo(data string, weight, height float64) string {
-	steps, duration, err := parsePackage(data)
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
+func DayActionInfo(data string, weight, height float64) (string, error) {
+    steps, duration, err := parsePackage(data)
+    if err != nil {
+        return "", fmt.Errorf("ошибка разбора данных: %w", err)
+    }
 
-	distanceMeters := float64(steps) * stepLength
-	distanceKm := distanceMeters / mInKm
+    distanceKm := distance(steps, height)
+    calories, err := WalkingSpentCalories(steps, weight, height, duration)
+    if err != nil {
+        return "", fmt.Errorf("ошибка расчета калорий: %w", err)
+    }
 
-	calories, err := WalkingSpentCalories(steps, weight, height, duration)
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
-
-	return formatDayActionInfo(steps, distanceKm, calories)
+    return formatDayActionInfo(steps, distanceKm, calories), nil
 }
 
 func formatDayActionInfo(steps int, distance, calories float64) string {
