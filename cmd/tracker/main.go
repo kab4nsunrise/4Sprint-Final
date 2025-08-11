@@ -24,6 +24,7 @@ func (ds DaySteps) ParsePackage(data string) (int, time.Duration, error) {
 	if steps <= 0 {
 		return 0, 0, errors.New("количество шагов должно быть положительным")
 	}
+	
 
 
 	duration, err := time.ParseDuration(durationStr)
