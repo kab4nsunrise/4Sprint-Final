@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 )
+
 type DaySteps struct{}
 
 func (ds DaySteps) ParsePackage(data string) (int, time.Duration, error) {
@@ -24,7 +25,8 @@ func (ds DaySteps) ParsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, errors.New("количество шагов должно быть положительным")
 	}
 
-	
+
+	duration, err := time.ParseDuration(durationStr)
 	durationStr := strings.TrimSpace(parts[1])
 	if !strings.Contains(durationStr, "s") && !strings.Contains(durationStr, "m") && !strings.Contains(durationStr, "h") {
 		return 0, 0, errors.New("неверный формат продолжительности")
