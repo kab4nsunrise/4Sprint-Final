@@ -1,0 +1,21 @@
+name: Go CI
+
+on:
+  push:
+    branches: [ main, dev ]  # Запускать при пуше в эти ветки
+  pull_request:              # И при создании PR
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # Клонирует репозиторий
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'  # Укажи нужную версию Go
+
+      - name: Run tests
+        run: go test -v ./...  # Запуск тестов
