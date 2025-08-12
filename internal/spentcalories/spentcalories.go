@@ -7,12 +7,11 @@ import (
 	"time"
 )
 
-
 const (
-	lenStep                    = 0.65 
+	lenStep                    = 0.65
 	mInKm                      = 1000 
-	minInH                     = 60   
-	stepLengthCoefficient      = 0.45 
+	minInH                     = 60  
+	stepLengthCoefficient      = 0.45
 	walkingCaloriesCoefficient = 0.5  
 	runningCaloriesCoefficient = 0.029 
 )
