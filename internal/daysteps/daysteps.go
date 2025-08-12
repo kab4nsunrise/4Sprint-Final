@@ -1,10 +1,15 @@
 package daysteps
 
 import (
-	
-	
-	stepLength = 0.65
+	"errors"
+	"fmt"
+	"strconv"
+	"strings"
+	"time"
+)
 
+const (
+	stepLength = 0.65
 	mInKm = 1000
 )
 
