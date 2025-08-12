@@ -1,14 +1,7 @@
 package daysteps
 
 import (
-	"errors"
-	"fmt"
-	"strconv"
-	"strings"
-	"time"
-)
-
-const (
+	
 	
 	stepLength = 0.65
 
