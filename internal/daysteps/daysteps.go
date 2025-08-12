@@ -73,3 +73,4 @@ func formatDayActionInfo(steps int, distance, calories float64) string {
 		"Вы сожгли " + strconv.FormatFloat(calories, 'f', 2, 64) + " ккал.",
 	}, "\n")
 }
+
