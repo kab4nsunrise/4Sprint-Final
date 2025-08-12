@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-// Основные константы, необходимые для расчетов.
+
 const (
-	lenStep                    = 0.65 // средняя длина шага.
-	mInKm                      = 1000 // количество метров в километре.
-	minInH                     = 60   // количество минут в часе.
-	stepLengthCoefficient      = 0.45 // коэффициент для расчета длины шага на основе роста.
-	walkingCaloriesCoefficient = 0.5  // коэффициент для расчета калорий при ходьбе
-	runningCaloriesCoefficient = 0.029 // коэффициент для расчета калорий при беге
+	lenStep                    = 0.65 
+	mInKm                      = 1000 
+	minInH                     = 60   
+	stepLengthCoefficient      = 0.45 
+	walkingCaloriesCoefficient = 0.5  
+	runningCaloriesCoefficient = 0.029 
 )
 
 type SpentCalories struct{}
