@@ -10,7 +10,7 @@ import (
 
 const (
 	stepLength = 0.65
-	mInKm = 1000
+	mInKm      = 1000
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
