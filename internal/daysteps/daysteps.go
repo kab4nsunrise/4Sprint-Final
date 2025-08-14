@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"spentcalories"
 )
 
 const (
@@ -42,7 +43,7 @@ func DayActionInfo(data string, weight, height float64) string {
 	}
 
 	distanceKm := float64(steps) * stepLength / mInKm
-	calories, err := WalkingSpentCalories(steps, weight, height, duration)
+	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
 	if err != nil {
 		return ""
 	}
